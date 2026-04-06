@@ -3,8 +3,8 @@ package Show;
 import Person.Actor;
 import Person.Director;
 
-import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Show {
     public String typeOfPerformance= "базовый";
@@ -24,12 +24,33 @@ public class Show {
         return title + ", длительность: " + duration + " минут";
     }
 
-    public void replaceActor(Actor newActor, Scanner scanner) {
-        System.out.println("Выберите актёры из списка спектакля, которого хотите заменить: ");
-        printActor();
-        int numberActor = scanner.nextInt();
-        listOfActors.set(numberActor - 1, newActor);
+    public void replaceActor(Actor newActor, String surnameActor, Scanner scanner) {
+        ArrayList<Integer> indexOfMatches = new ArrayList<>();
+        for(int i = 0; i < listOfActors.size(); i++) {
+            if(listOfActors.get(i).surname.equals(surnameActor)) {
+                indexOfMatches.add(i);
+            }
+        }
 
+        if(indexOfMatches.isEmpty()) {
+            System.out.println("Актёра с такой фамилией нет в спектакле!");
+        } else if(indexOfMatches.size() == 1) {
+            listOfActors.set(indexOfMatches.getFirst(), newActor);
+            System.out.println("Актёр успешно заменен!");
+        } else {
+            System.out.println("В списке несколько актёров с такой фамилией!");
+            System.out.println("Введите дополнительно имя актёра: ");
+            String name = scanner.next();
+            for(int index: indexOfMatches) {
+                if(listOfActors.get(index).name.equals(name)) {
+                    listOfActors.set(index, newActor);
+                    System.out.println("Актёр успешно заменен!");
+                } else {
+                    System.out.println("Актёра с такой фамилией и именем нет в спектакле!");
+                    return;
+                }
+            }
+        }
     }
 
     public void printActor() {

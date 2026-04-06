@@ -22,7 +22,7 @@ public class MenuProcessing {
         String name = scanner.next();
         System.out.print("Введите фамилию: ");
         String surname = scanner.next();
-        System.out.print("Введите пол, в формате (MALE или FAMALE): ");
+        System.out.print("Введите пол, в формате (MALE или FEMALE): ");
         String gender = scanner.next();
         System.out.println("\n" + "Автор музыки успешно добавлен!");
         musicAuthors.add(new Person(name, Gender.valueOf(gender), surname));
@@ -34,7 +34,7 @@ public class MenuProcessing {
         String name = scanner.next();
         System.out.print("Введите фамилию: ");
         String surname = scanner.next();
-        System.out.print("Введите пол, в формате (MALE или FAMALE): ");
+        System.out.print("Введите пол, в формате (MALE или FEMALE): ");
         String gender = scanner.next();
         System.out.print("Введите рост: ");
         int height = scanner.nextInt();
@@ -59,7 +59,7 @@ public class MenuProcessing {
         String name = scanner.next();
         System.out.print("Введите фамилию: ");
         String surname = scanner.next();
-        System.out.print("Введите пол, в формате (MALE или FAMALE): ");
+        System.out.print("Введите пол, в формате (MALE или FEMALE): ");
         String gender = scanner.next();
         System.out.println("\n" + "Хореограф успешно добавлен!");
         choreographers.add(new Person(name, Gender.valueOf(gender), surname));
@@ -71,7 +71,7 @@ public class MenuProcessing {
         String name = scanner.next();
         System.out.print("Введите фамилию: ");
         String surname = scanner.next();
-        System.out.print("Введите пол, в формате (MALE или FAMALE): ");
+        System.out.print("Введите пол, в формате (MALE или FEMALE): ");
         String gender = scanner.next();
         System.out.print("Введите количество спектаклей поставленных режиссёром: ");
         int numberOfShows = scanner.nextInt();
@@ -114,7 +114,7 @@ public class MenuProcessing {
                 System.out.println("Выберите хореографа спектакля: ");
                 printChoreographers();
                 int numberChoreographer = scanner.nextInt();
-                Person choreographer = musicAuthors.get(numberChoreographer - 1);
+                Person choreographer = choreographers.get(numberChoreographer - 1);
                 System.out.println("Спектакль «" + title + "» успешно создан!");
                 listShow.add(new Ballet(title, duration, director, musicAuthor, librettoText, choreographer));
             } else if (command == 3) {
@@ -266,8 +266,9 @@ public class MenuProcessing {
         printActors();
         int numberActor = scanner.nextInt();
         Actor newActor = actors.get(numberActor - 1);
-        listShow.get(numberShow - 1).replaceActor(newActor, scanner);
-
+        System.out.println("Введите фамилию актера, которого хотите заменить.");
+        String surname = scanner.next();
+        listShow.get(numberShow - 1).replaceActor(newActor, surname, scanner);
     }
 }
 
